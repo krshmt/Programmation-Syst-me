@@ -59,6 +59,14 @@ public class Matrice{
             threads[i] = new MatriceThread(this, m, resultat, i);
             threads[i].start();
         }
+        for(MatriceThread matT : threads){
+            try{
+                matT.join();
+            }
+            catch(Exception e){
+                System.out.println(e.getMessage());
+            }
+        }
         return resultat;
     }
 
