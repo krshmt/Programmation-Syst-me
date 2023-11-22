@@ -1,3 +1,6 @@
+import java.util.ArrayList;
+import java.util.List;
+
 public class Matrice{
     
     private Integer taille;
@@ -51,15 +54,44 @@ public class Matrice{
         return resultat;
     }
 
-    public Matrice multiplicationParrallele(Matrice m) {
-        Matrice resultat = new Matrice(taille);
-        MatriceThread[] threads = new MatriceThread[taille];
+    // public Matrice multiplicationParrallele(Matrice m) {
+    //     Matrice resultat = new Matrice(taille);
+    //     MatriceThread[] threads = new MatriceThread[taille];
 
-        for (int i = 0; i < taille; i++) {
-            threads[i] = new MatriceThread(this, m, resultat, i);
-            threads[i].start();
+    //     for (int i = 0; i < taille; i++) {
+    //         threads[i] = new MatriceThread(this, m, resultat, i);
+    //         threads[i].start();
+    //     }
+    //     for(MatriceThread matT : threads){
+    //         try{
+    //             matT.join();
+    //         }
+    //         catch(Exception e){
+    //             System.out.println(e.getMessage());
+    //         }
+    //     }
+    //     return resultat;
+    // }
+
+    public Matrice multiplicationParCoeur(Matrice matrice){
+        int n = matrice.taille;
+        Matrice res = new Matrice(n);
+        List<MatriceThread> listThread = new ArrayList<>();
+        int nbThread = Runtime.getRuntime().availableProcessors();
+        int nbLignesParThread = n/nbThread;
+
+        int debut,fin = 0;
+        for(int i = 0; i<nbThread; i++){
+            debut = i*nbLignesParThread;
+            fin = (i+1)*nbLignesParThread;
+            if(i==nbThread-1){
+                fin = n;
+            MatriceThread matThr = new MatriceThread(this, matrice, res, debut, fin);
+            listThread.add(matThr);
+            matThr.start();
+            }
         }
-        for(MatriceThread matT : threads){
+        for(MatriceThread matT : listThread){
             try{
                 matT.join();
             }
@@ -67,7 +99,7 @@ public class Matrice{
                 System.out.println(e.getMessage());
             }
         }
-        return resultat;
+        return res;
     }
 
 }
