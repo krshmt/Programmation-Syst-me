@@ -1,3 +1,4 @@
+package Exercice1;
 public class Fournisseur extends Thread {
 
     private Stock stock;

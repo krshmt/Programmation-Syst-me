@@ -1,3 +1,4 @@
+package Exercice1;
 public class Executable {
     public static void main(String[] args) {
         Stock stock = new Stock();
