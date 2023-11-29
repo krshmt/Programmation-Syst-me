@@ -8,11 +8,10 @@ public class Assembleur extends Thread {
 
     @Override
     public void run() {
-        System.out.println("Assembleur : Démarré.");
         while (true) {
             assemblerVoiture();
             try {
-                Thread.sleep(1000); // Simule le temps nécessaire pour assembler une voiture
+                Thread.sleep(1000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

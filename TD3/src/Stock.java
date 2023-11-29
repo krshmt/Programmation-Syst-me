@@ -20,12 +20,12 @@ public class Stock {
     public void ajouterMoteur(String key) throws InterruptedException {
         lock.lock();
         try {
-            while (this.data.get(key) > 5) {
+            while (this.data.get(key) >= 5) {
                 attente.await();
             }
             int valeurCle = this.data.get(key);
             this.data.put(key, valeurCle + 1);
-            attente.signalAll();
+            attente.signal();
         } finally {
             lock.unlock();
         }
@@ -39,7 +39,7 @@ public class Stock {
             }
             int valeurCle = this.data.get(key);
             this.data.put(key, valeurCle - 1);
-            attente.signalAll();
+            attente.signal();
         } finally {
             lock.unlock();
         }
@@ -53,7 +53,7 @@ public class Stock {
             }
             int valeurCle = this.data.get(key);
             this.data.put(key, valeurCle + 1);
-            attente.signalAll();
+            attente.signal();
         } finally {
             lock.unlock();
         }
@@ -67,7 +67,7 @@ public class Stock {
             }
             int valeurCle = this.data.get(key);
             this.data.put(key, valeurCle - 1);
-            attente.signalAll();
+            attente.signal();
         } finally {
             lock.unlock();
         }
@@ -81,7 +81,7 @@ public class Stock {
             }
             int valeurCle = this.data.get(key);
             this.data.put(key, valeurCle + 1);
-            attente.signalAll();
+            attente.signal();
         } finally {
             lock.unlock();
         }
@@ -95,7 +95,7 @@ public class Stock {
             }
             int valeurCle = this.data.get(key);
             this.data.put(key, valeurCle - 4);
-            attente.signalAll();
+            attente.signal();
         } finally {
             lock.unlock();
         }

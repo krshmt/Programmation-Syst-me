@@ -1,15 +1,11 @@
-import java.util.Random;
-
 public class Fournisseur extends Thread {
 
     private Stock stock;
     private String pieceType;
-    private Random random;
 
     public Fournisseur(Stock stock, String pieceType) {
         this.stock = stock;
         this.pieceType = pieceType;
-        this.random = new Random();
     }
 
     @Override
@@ -18,7 +14,7 @@ public class Fournisseur extends Thread {
         while (true) {
             produirePiece();
             try {
-                Thread.sleep(random.nextInt(1000));
+                Thread.sleep(1000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
