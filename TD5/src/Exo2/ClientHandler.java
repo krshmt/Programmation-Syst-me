@@ -30,13 +30,12 @@ public void run() {
         InputStreamReader stream = new InputStreamReader(socketClient.getInputStream());
         BufferedReader reader = new BufferedReader(stream);
         String message = reader.readLine();
+        sondage.afficherCandidates();
 
-        if (message.equals("/vote")) {
-            sondage.afficherCandidates();
-            writer.println(sondage.afficherCandidates());
-            writer.println("Veuillez choisir un candidat");
-            String message2 = reader.readLine().trim();
-            sondage.voterCandidat(message2);
+        if (message.startsWith("/vote ")) {
+            String[] message2 = message.split(" ");
+            String message3 = message2[1];
+            sondage.voterCandidat(message3);
             
         } else if (message.equals("/resultat")) {
             String vainqueur = sondage.candidatVainqueur();
